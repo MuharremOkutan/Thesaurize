@@ -28,7 +28,6 @@ import android.widget.TextView;
 public class ThesaurizeActivity extends Activity {
 	private final String API_KEY = "9ed13fa88d10a23467efc83f3d0107eb";
 
-	private LinearLayout thesaurizeLayout;
 	private EditText inputWordEditText;
 	private Button thesaurizeButton;
 	private TextView statusTextView;
@@ -59,7 +58,6 @@ public class ThesaurizeActivity extends Activity {
 		setContentView(R.layout.thesaurus_activity);
 
 		// grab handles for full layout, text input, and search synonyms submit button
-		thesaurizeLayout = (LinearLayout) findViewById(R.id.thesuarizeLayout);
 		inputWordEditText = (EditText) findViewById(R.id.inputWordEditText);
 		thesaurizeButton = (Button) findViewById(R.id.thesaurizeButton);
 		statusTextView = (TextView) findViewById(R.id.statusTextView);
@@ -93,6 +91,34 @@ public class ThesaurizeActivity extends Activity {
 		verbListView = (ListView) findViewById(R.id.verbListView);
 		adjectiveListView = (ListView) findViewById(R.id.adjectiveListView);
 		adverbListView = (ListView) findViewById(R.id.adverbListView);
+		
+		// recover interrupted state
+		if (savedInstanceState != null) {
+			statusTextView.setText(savedInstanceState.getString("status"));
+			statusTextView.setVisibility(View.VISIBLE);
+			
+			nouns = savedInstanceState.getStringArrayList("nouns");
+			verbs = savedInstanceState.getStringArrayList("verbs");
+			adjectives = savedInstanceState.getStringArrayList("adjectives");
+			adverbs = savedInstanceState.getStringArrayList("adverbs");
+			
+			if (nouns.size() > 0) {
+				nounButton.setVisibility(View.VISIBLE);
+			}
+			nounListView.setVisibility(savedInstanceState.getInt("nounListVisibility"));
+			if (verbs.size() > 0) {
+				verbButton.setVisibility(View.VISIBLE);
+			}
+			verbListView.setVisibility(savedInstanceState.getInt("verbListVisibility"));
+			if (adjectives.size() > 0) {
+				adjectiveButton.setVisibility(View.VISIBLE);
+			}
+			adjectiveListView.setVisibility(savedInstanceState.getInt("adjectiveListVisibility"));
+			if (adverbs.size() > 0) {
+				adverbButton.setVisibility(View.VISIBLE);
+			}
+			adverbListView.setVisibility(savedInstanceState.getInt("adverbListVisibility"));
+		}
 
 		nounAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nouns);
 		nounListView.setAdapter(nounAdapter);
@@ -152,7 +178,7 @@ public class ThesaurizeActivity extends Activity {
 		return synonyms;
 	}
 
-	private Map<String, ArrayList<String>> thing(String word) {
+	private Map<String, ArrayList<String>> retrieveConstructSynonyms(String word) {
 
 		Map<String, ArrayList<String>> constructSynonyms = new HashMap<String, ArrayList<String>>();
 
@@ -187,7 +213,7 @@ public class ThesaurizeActivity extends Activity {
 		@Override
 		protected Map<String, ArrayList<String>> doInBackground(String... params) {
 			this.word = params[0];
-			return thing(word);
+			return retrieveConstructSynonyms(word);
 		}
 
 		@Override
@@ -235,10 +261,10 @@ public class ThesaurizeActivity extends Activity {
 				}
 				adverbListView.setVisibility(View.GONE);
 				
-				statusTextView.setText("Synonyms For '" + word + "'");
+				statusTextView.setText(getString(R.string.synonyms_found_for) + " '" + word + "'");
 				statusTextView.setVisibility(View.VISIBLE);
 			} else {
-				statusTextView.setText("No Synonyms Found For '" + word + "'");
+				statusTextView.setText(getString(R.string.no_synonyms_found_for) + " '" + word + "'");
 				statusTextView.setVisibility(View.VISIBLE);
 			}
 		}
@@ -255,6 +281,23 @@ public class ThesaurizeActivity extends Activity {
 		}
 
 		return builder.toString();
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		
+		outState.putString("status", statusTextView.getText().toString());
+		
+		outState.putStringArrayList("nouns", nouns);
+		outState.putStringArrayList("verbs", verbs);
+		outState.putStringArrayList("adjectives", adjectives);
+		outState.putStringArrayList("adverbs", adverbs);
+		
+		outState.putInt("nounListVisibility", nounListView.getVisibility());
+		outState.putInt("verbListVisibility", verbListView.getVisibility());
+		outState.putInt("adjectiveListVisibility", adjectiveListView.getVisibility());
+		outState.putInt("adverbListVisibility", adverbListView.getVisibility());
 	}
 
 }

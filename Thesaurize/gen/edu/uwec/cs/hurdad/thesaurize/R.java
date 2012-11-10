@@ -31,7 +31,16 @@ public final class R {
         public static final int thesaurus_activity=0x7f030000;
     }
     public static final class string {
-        public static final int app_name=0x7f040000;
+        public static final int adjective=0x7f040000;
+        public static final int adverb=0x7f040001;
+        public static final int app_name=0x7f040002;
+        public static final int excited_thesaurize=0x7f040003;
+        public static final int input_word_hint=0x7f040004;
+        public static final int no_synonyms_found_for=0x7f040005;
+        public static final int noun=0x7f040006;
+        public static final int synonyms_found_for=0x7f040007;
+        public static final int twodee=0x7f040008;
+        public static final int verb=0x7f040009;
     }
     public static final class style {
         public static final int AppTheme=0x7f050000;

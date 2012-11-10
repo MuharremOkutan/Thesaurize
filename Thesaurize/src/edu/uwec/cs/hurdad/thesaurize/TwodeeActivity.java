@@ -54,9 +54,9 @@ public class TwodeeActivity extends ListActivity {
         new DownloadTask().execute();
 	}
 	
-	private ArrayList<Link> thing() {
+	private ArrayList<Link> retrieveLinks() {
 		
-		ArrayList<Link> test = new ArrayList<Link>();
+		ArrayList<Link> retrievedLinks = new ArrayList<Link>();
 		
 		try {
 			
@@ -69,7 +69,7 @@ public class TwodeeActivity extends ListActivity {
 			JSONArray array = new JSONArray(json);
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject object = array.getJSONObject(i);
-				test.add(new Link(object.getString("title"), object.getString("link")));
+				retrievedLinks.add(new Link(object.getString("title"), object.getString("link")));
 			}
 			in.close();
 			
@@ -77,14 +77,14 @@ public class TwodeeActivity extends ListActivity {
 		} catch (IOException e) {
 		} catch (JSONException e) {}
 		
-		return test;
+		return retrievedLinks;
 	}
 	
 	class DownloadTask extends AsyncTask<String, Void, ArrayList<Link>> {
 
 		@Override
 		protected ArrayList<Link> doInBackground(String... params) {
-			return thing();
+			return retrieveLinks();
 		}
 
 		@Override

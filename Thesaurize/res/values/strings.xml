@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">GithubTracker</string>
+    <string name="adjective">adjective</string>
+    <string name="adverb">adverb</string>
+    <string name="app_name">Thesaurize</string>
+    <string name="excited_thesaurize">Thesaurize!</string>
+    <string name="input_word_hint">Enter Word Here</string>
+    <string name="no_synonyms_found_for">No Synonyms Found For</string>
+    <string name="noun">noun</string>
+    <string name="synonyms_found_for">Synonyms For</string>
+    <string name="twodee">Twodee</string>
+    <string name="verb">verb</string>
 </resources>
