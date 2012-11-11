@@ -2,6 +2,7 @@
     <string name="adjective">adjective</string>
     <string name="adverb">adverb</string>
     <string name="app_name">Thesaurize</string>
+    <string name="big_huge_labs_credit">Thesaurus service provided by words.bighugelabs.com</string>
     <string name="excited_thesaurize">Thesaurize!</string>
     <string name="input_word_hint">Enter Word Here</string>
     <string name="no_synonyms_found_for">No Synonyms Found For</string>

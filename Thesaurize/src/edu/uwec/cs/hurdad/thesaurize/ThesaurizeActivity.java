@@ -14,6 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -27,7 +29,9 @@ import android.widget.TextView;
 
 public class ThesaurizeActivity extends Activity {
 	private final String API_KEY = "9ed13fa88d10a23467efc83f3d0107eb";
+	private final String CREDIT_LINK = "http://words.bighugelabs.com";
 
+	private Button creditLinkButton;
 	private EditText inputWordEditText;
 	private Button thesaurizeButton;
 	private TextView statusTextView;
@@ -58,9 +62,20 @@ public class ThesaurizeActivity extends Activity {
 		setContentView(R.layout.thesaurus_activity);
 
 		// grab handles for full layout, text input, and search synonyms submit button
+		creditLinkButton = (Button) findViewById(R.id.creditLinkButton);
 		inputWordEditText = (EditText) findViewById(R.id.inputWordEditText);
 		thesaurizeButton = (Button) findViewById(R.id.thesaurizeButton);
 		statusTextView = (TextView) findViewById(R.id.statusTextView);
+
+		// set thesaurizeButton on click to execute synonym request
+		creditLinkButton.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				intent.setData(Uri.parse(CREDIT_LINK));
+				startActivity(intent);
+			}
+		});
 
 		// set thesaurizeButton on click to execute synonym request
 		thesaurizeButton.setOnClickListener(new OnClickListener() {
